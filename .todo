@@ -1,0 +1,3 @@
+Import listings from Craigslist into SQLlite3 db:
+    ✔ Connect to Craigslist and return sample listings @done(20-07-27 08:48)
+    ☐ Save sample listings to SQLlite3 db @today 
