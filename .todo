@@ -1,3 +1,6 @@
 Import listings from Craigslist into SQLlite3 db:
     ✔ Connect to Craigslist and return sample listings @done(20-07-27 08:48)
     ☐ Save sample listings to SQLlite3 db @today 
+        ✔ Create listings table @done(20-08-01 13:03)
+        ✔ Use ActiveRecord pattern with sqlalchemy-mixins: https://github.com/absent1706/sqlalchemy-mixins @done(20-08-01 13:03)
+        ☐ Retrieve listings from import.py and store into new listings table

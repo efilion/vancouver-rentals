@@ -6,9 +6,12 @@ name = "pypi"
 [packages]
 beautifulsoup4 = "*"
 python-craigslist = "*"
+SQLAlchemy = "*"
+sqlalchemy-mixins = "*"
 
 [dev-packages]
 pylint = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.8"
