@@ -1,0 +1,6 @@
+{
+    "python.pythonPath": "/home/eric/.local/share/virtualenvs/vancouver-rentals-cujNVZeZ/bin/python",
+    "code-runner.executorMap": {
+        "python": "pipenv run python"
+    }
+}
