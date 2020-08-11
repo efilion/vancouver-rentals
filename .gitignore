@@ -2,3 +2,4 @@ __pycache__
 listings.db
 test_listings.db
 .vscode/.ropeproject
+.env
