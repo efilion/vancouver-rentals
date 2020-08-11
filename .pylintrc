@@ -2,5 +2,8 @@
 init-hook='import sys; sys.path.append(".")'
 disable=C0114,C0115,C0116
 
+[BASIC]
+good-names-rgxs=[a-z]
+
 [TYPECHECK]
 ignored-modules=sqlalchemy
