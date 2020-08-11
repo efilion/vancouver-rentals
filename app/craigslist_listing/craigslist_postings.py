@@ -2,11 +2,11 @@ from dateutil.parser import parse as parse_date
 from craigslist import CraigslistHousing
 from app.craigslist_listing.listing import Listing
 
-def read_listings():
+def read_listings(batch_size):
     # return self.postings data formatted as Listing
     postings = \
       CraigslistHousing(site='vancouver', area='van', category='apa') \
-        .get_results(sort_by='newest', limit=200, geotagged=True)
+        .get_results(sort_by='newest', limit=batch_size, geotagged=True)
 
     return (Listing(
         cl_id=p.get('id'),
