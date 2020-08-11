@@ -18,10 +18,19 @@ def read_listings():
         name=p.get('name'),
         price=parse_price(p.get('price')),
         location=p.get('where')
-    ) for p in postings)
+    ) for p in postings
+            if isValid(p))
 
 def parse_price(price):
     try:
         return float(price.replace("$", ""))
     except ValueError:
         return None
+
+def isValid(posting):
+    try:
+        hasLat = float(posting.get('geotag')[0])
+        hasLon = float(posting.get('geotag')[1])
+        return hasLat and hasLon
+    except TypeError:
+        return False
