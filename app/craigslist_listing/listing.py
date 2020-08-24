@@ -14,3 +14,5 @@ class Listing(BaseModel):
     price = Column(Float)
     location = Column(String)
     cl_id = Column(Integer, unique=True)
+    duration_value = Column(Integer)
+    duration_text = Column(String)

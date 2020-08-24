@@ -3,3 +3,5 @@ listings.db
 test_listings.db
 .vscode/.ropeproject
 .env
+.hypothesis
+.VSCodeCounter

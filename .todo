@@ -8,7 +8,7 @@ Import listings from Craigslist into SQLlite3 db:
         ✔ Must have valid geotag, otherwise discard @done(20-08-10 20:59)
 
 Calculate commute time for each listing:
-    ☐ Use google maps to map commute based on longitude and lattitude
+    ✔ Use google maps to map commute based on longitude and lattitude @done(20-08-25 18:16)
 
 Display listings in scatter plot (y=price, x=commute time):
     ☐ pipenv install ggplot

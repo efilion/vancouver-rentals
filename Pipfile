@@ -9,6 +9,8 @@ python-craigslist = "*"
 SQLAlchemy = "*"
 sqlalchemy-mixins = "*"
 python-dateutil = "*"
+googlemaps = "*"
+hypothesis = "*"
 
 [dev-packages]
 pylint = "*"
