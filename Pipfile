@@ -15,6 +15,7 @@ hypothesis = "*"
 [dev-packages]
 pylint = "*"
 pytest = "*"
+bandit = "*"
 
 [requires]
 python_version = "3.8"
