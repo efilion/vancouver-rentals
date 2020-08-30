@@ -6,16 +6,17 @@ name = "pypi"
 [packages]
 beautifulsoup4 = "*"
 python-craigslist = "*"
-SQLAlchemy = "*"
-sqlalchemy-mixins = "*"
 python-dateutil = "*"
 googlemaps = "*"
 hypothesis = "*"
+mongoengine = "*"
 
 [dev-packages]
 pylint = "*"
 pytest = "*"
 bandit = "*"
+mongomock = "*"
+pylint-mongoengine = "*"
 
 [requires]
 python_version = "3.8"

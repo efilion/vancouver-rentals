@@ -1,13 +1,10 @@
 import logging
 from os import getenv
 
+from mongoengine import connect, OperationError
 from craigslist import CraigslistHousing
 import googlemaps
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
-from sqlalchemy.exc import SQLAlchemyError
 
-from app.sqlbase import Base, BaseModel
 from app.craigslist_listing.listing import Listing # pylint: disable=unused-import
 from app.craigslist_listing.craigslist_postings import CraigslistListings
 from app.distance import Distance
@@ -17,9 +14,6 @@ def main():
     logging.basicConfig(level=int(getenv('LOGLEVEL')))
 
     resources = initialize_resources()
-
-    BaseModel.set_session(resources['database_session'])
-    Base.metadata.create_all(resources['database_engine'])
 
     batch_size = 200
 
@@ -32,23 +26,26 @@ def main():
     _saved = 0
     for p in postings:
         try:
-            Listing.create(**p.to_dict())
+            p.save()
             _saved = _saved + 1
 
             duration_value, duration_text = dist.commute_time(ubc_coords, (p.lat, p.lon))
-            p.update(duration_value=duration_value, duration_text=duration_text)
-        except SQLAlchemyError as err:
+            p.duration_value=duration_value
+            p.duration_text=duration_text
+            p.save()
+        except OperationError as err:
             logging.warning(err)
 
     logging.info("(%s/%s) postings saved to the database.", _saved, batch_size)
 
 def initialize_resources():
     resources = dict()
-    engine = create_engine('sqlite:///listings.db', echo=False)
-    session = scoped_session(sessionmaker(bind=engine, autocommit=True))
 
-    resources['database_engine'] = engine
-    resources['database_session'] = session
+    database_connection = connect('vancouver-rentals', **{
+        'host': 'localhost',
+        'port': 27017
+    })
+    resources['database_connection'] = database_connection
 
     craigslist_provider = CraigslistHousing(site='vancouver', area='van', category='apa')
     resources['craigslist_provider'] = craigslist_provider

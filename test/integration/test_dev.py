@@ -8,8 +8,7 @@ from hypothesis.strategies import composite, lists, tuples, booleans, \
         integers, floats, text, datetimes
 from hypothesis.provisional import urls
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
+from mongoengine import connect
 
 from app.main import main
 
@@ -17,11 +16,10 @@ def initialize_resources(postings, distance_matrices):
 
     resources = dict()
 
-    engine = create_engine('sqlite:///:memory:', echo=False)
-    session = scoped_session(sessionmaker(bind=engine, autocommit=True))
-
-    resources['database_engine'] = engine
-    resources['database_session'] = session
+    database_connection = connect('vancouver-rentals', **{
+        'host': 'mongomock://localhost'
+    })
+    resources['database_connection'] = database_connection
 
     resources['craigslist_provider'] = craigslist_mock(postings)
     resources['distance_matrix_provider'] = gmaps_mock(distance_matrices)

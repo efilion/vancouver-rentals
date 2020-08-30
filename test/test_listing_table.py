@@ -1,21 +1,14 @@
 from datetime import datetime
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
-from app.sqlbase import Base, BaseModel
+from mongoengine import connect, disconnect
 from app.craigslist_listing.listing import Listing
 
 class TestListingTable: # pylint: disable=attribute-defined-outside-init
 
-    def setup_class(self):
-        self.engine = create_engine('sqlite:///test_listings.db', echo=False)
-        session = scoped_session(sessionmaker(bind=self.engine, autocommit=True))
-        BaseModel.set_session(session)
-
     def setup_method(self):
-        Base.metadata.create_all(self.engine)
+        connect('vancouver-rentals', host='mongomock://localhost')
 
     def teardown_method(self):
-        Base.metadata.drop_all(self.engine)
+        disconnect()
 
     def test_table_exists(self):
 
@@ -30,7 +23,7 @@ class TestListingTable: # pylint: disable=attribute-defined-outside-init
         rent = 1550
         killarney = 'East Vancouver Killarney'
 
-        Listing.create(
+        l = Listing(
             link=url,
             created=today,
             geotag=coords,
@@ -41,8 +34,9 @@ class TestListingTable: # pylint: disable=attribute-defined-outside-init
             location=killarney,
             cl_id=0
         )
+        l.save()
 
-        listing = Listing.first()
+        listing = Listing.objects().first()
 
         assert listing.link == url
         assert listing.created == today
