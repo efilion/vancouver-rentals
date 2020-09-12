@@ -15,7 +15,7 @@ def main():
 
     resources = initialize_resources()
 
-    batch_size = 200
+    batch_size = 3000
 
     craigslist = CraigslistListings(resources['craigslist_provider'])
     postings = craigslist.read_listings(batch_size)
