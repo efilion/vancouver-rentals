@@ -38,7 +38,7 @@ def craigslist_mock(postings):
 @composite
 def craigslist_responses(draw):
     return {
-        'id': '{0}'.format(draw(integers(min_value=0))),
+        'id': '{0}'.format(draw(integers(min_value=0, max_value=(2**31)))),
         'repost_of': None,
         'name': draw(text()),
         'url': draw(urls()),
