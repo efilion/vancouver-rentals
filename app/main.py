@@ -23,11 +23,9 @@ def main():
     dist = Distance(resources['distance_matrix_provider'])
     ubc_coords = (49.2455604, -123.2899276)
 
-    _saved = 0
     for p in postings:
         try:
-            p.save()
-            _saved = _saved + 1
+            Listing.objects(cl_id=p.cl_id).upsert_one(**p.to_mongo())
 
             duration_value, duration_text = dist.commute_time(ubc_coords, (p.lat, p.lon))
             p.duration_value=duration_value
@@ -35,8 +33,8 @@ def main():
             p.save()
         except OperationError as err:
             logging.warning(err)
-
-    logging.info("(%s/%s) postings saved to the database.", _saved, batch_size)
+        except ValueError as err:
+            logging.warning("%s in %s", err, p.to_json())
 
 def initialize_resources():
     resources = dict()
