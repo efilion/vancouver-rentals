@@ -1,10 +1,16 @@
-from dateutil.parser import parse as parse_date
+from dateutil.parser import parse as dateutil_parse, ParserError
 from app.craigslist_listing.listing import Listing
 
 def parse_price(price):
     try:
         return float(price.replace('$', '').replace(',',''))
     except ValueError:
+        return None
+
+def parse_date(date):
+    try:
+        return dateutil_parse(date)
+    except ParserError:
         return None
 
 def isValid(posting):
