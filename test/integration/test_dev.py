@@ -4,7 +4,8 @@ from itertools import cycle
 from unittest import TestCase
 from unittest.mock import patch
 from hypothesis import given
-from hypothesis.strategies import composite, lists, tuples, booleans, \
+from hypothesis.strategies import composite, one_of, just, \
+        lists, tuples, booleans, \
         integers, floats, text, datetimes
 from hypothesis.provisional import urls
 
@@ -30,7 +31,7 @@ def craigslist_mock(postings):
     mock = type("CraigslistHousingProvider", (object,), {
         "postings": postings,
         "get_results":
-            lambda self, sort_by, limit, geotagged: (x for x in self.postings[:limit])
+            lambda self, sort_by, limit, geotagged, include_details: (x for x in self.postings[:limit])
     })
 
     return mock()
@@ -48,8 +49,13 @@ def craigslist_responses(draw):
         'where': draw(text()),
         'has_image': draw(booleans()),
         'geotag': draw(tuples(floats(), floats())),
-        'deleted': draw(booleans())
+        'deleted': draw(booleans()),
+        'bedrooms': round_to_point_five(draw(floats(min_value=0, max_value=100))),
+        'bathrooms': draw(one_of(just("shared"), floats(min_value=0, max_value=100).map(round_to_point_five)))
     }
+
+def round_to_point_five(n):
+    return round(n*2)/2
 
 def gmaps_mock(distance_matrices):
     mock = type("DistanceMatrixProviderMock", (object,), {
