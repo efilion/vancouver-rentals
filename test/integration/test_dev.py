@@ -44,7 +44,7 @@ def craigslist_responses(draw):
         'url': draw(urls()),
         'datetime': draw(datetimes()).strftime('%Y-%m-%d %H:%M'),
         'last_updated': draw(datetimes()).strftime('%Y-%m-%d %H:%M'),
-        'price': '${0}'.format(draw(integers(min_value=0))),
+        'price': '${0:,}'.format(draw(integers(min_value=0))),
         'where': draw(text()),
         'has_image': draw(booleans()),
         'geotag': draw(tuples(floats(), floats())),

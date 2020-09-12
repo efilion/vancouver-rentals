@@ -3,7 +3,7 @@ from app.craigslist_listing.listing import Listing
 
 def parse_price(price):
     try:
-        return float(price.replace("$", ""))
+        return float(price.replace('$', '').replace(',',''))
     except ValueError:
         return None
 
