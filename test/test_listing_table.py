@@ -39,7 +39,7 @@ class TestListingTable: # pylint: disable=attribute-defined-outside-init
         listing = Listing.objects().first()
 
         assert listing.link == url
-        assert listing.created == today
+        assert listing.created.replace(microsecond=0) == today.replace(microsecond=0) # mongodb not accurate to microsecond
         assert listing.geotag == coords
         assert listing.lat == latitue
         assert listing.lon == longitude
