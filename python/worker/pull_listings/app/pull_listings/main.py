@@ -5,9 +5,9 @@ from mongoengine import connect, OperationError
 from craigslist import CraigslistHousing
 import googlemaps
 
-from app.craigslist_listing.listing import Listing # pylint: disable=unused-import
-from app.craigslist_listing.craigslist_postings import CraigslistListings
-from app.distance import Distance
+from app.common.listing import Listing # pylint: disable=unused-import
+from app.pull_listings.craigslist_postings import CraigslistListings
+from app.pull_listings.distance import Distance
 
 def main():
 

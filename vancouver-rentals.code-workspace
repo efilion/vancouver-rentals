@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "python/worker/pull_listings"
+		},
+		{
+			"path": "python/pylib"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {}
+}

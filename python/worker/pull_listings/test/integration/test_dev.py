@@ -9,15 +9,15 @@ from hypothesis.strategies import composite, one_of, just, \
         integers, floats, text, datetimes
 from hypothesis.provisional import urls
 
-from mongoengine import connect
+from mongoengine import connect, disconnect
 
-from app.main import main
+from app.pull_listings.main import main
 
 def initialize_resources(postings, distance_matrices):
 
     resources = dict()
 
-    database_connection = connect('vancouver-rentals', **{
+    database_connection = connect('test_dev_integration', **{
         'host': 'mongomock://localhost'
     })
     resources['database_connection'] = database_connection
@@ -90,10 +90,13 @@ def gmaps_responses(draw):
 
 class TestDevIntegration(TestCase):
 
-    @patch('app.main.initialize_resources')
+    @patch('app.pull_listings.main.initialize_resources')
     @given(
         postings=lists(craigslist_responses()), # pylint: disable=no-value-for-parameter
         distance_matrices=lists(gmaps_responses(), min_size=1)) # pylint: disable=no-value-for-parameter
     def test_main(self, mock, postings, distance_matrices):
         mock.return_value = initialize_resources(postings, distance_matrices)
         main()
+
+    def teardown_method(self, mock): # pylint: disable=unused-argument
+        disconnect()

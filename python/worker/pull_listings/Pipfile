@@ -10,6 +10,7 @@ python-dateutil = "*"
 googlemaps = "*"
 hypothesis = "*"
 mongoengine = "*"
+flask = "*"
 
 [dev-packages]
 pylint = "*"

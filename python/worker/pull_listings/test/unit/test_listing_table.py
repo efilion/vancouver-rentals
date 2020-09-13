@@ -1,11 +1,11 @@
 from datetime import datetime
 from mongoengine import connect, disconnect
-from app.craigslist_listing.listing import Listing
+from app.common.listing import Listing
 
 class TestListingTable: # pylint: disable=attribute-defined-outside-init
 
     def setup_method(self):
-        connect('vancouver-rentals', host='mongomock://localhost')
+        connect('test_table_exists', host='mongomock://localhost')
 
     def teardown_method(self):
         disconnect()

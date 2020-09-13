@@ -1,5 +1,5 @@
 from dateutil.parser import parse as dateutil_parse, ParserError
-from app.craigslist_listing.listing import Listing
+from app.common.listing import Listing
 
 def parse_price(price):
     try:
