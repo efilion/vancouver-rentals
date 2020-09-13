@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "."
+		},
+		{
+			"path": "angular/web/ui"
 		}
 	],
 	"settings": {}
